@@ -1,4 +1,4 @@
-# Resume Introduction Front end
+# Resume Introduction Front end ReactJs
 1. Apa itu front end?
     => salah satu bagian website yang menampilkan tampilan untuk pengguna
     => tugasnya mengubah UI/UX  yang sudah siap menuju halaman website
