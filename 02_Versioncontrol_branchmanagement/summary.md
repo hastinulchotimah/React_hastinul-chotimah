@@ -23,7 +23,7 @@
     -> Git remote digunakan petunjuk ke versi repositori yang biasanya disimpan di server lain. 
     -> Git Fetch digunakan untuk mengetahui perubahan yang ada di remote repo/branch sejak kamu terakhir kali pull.
     -> Git pull digunakan untuk menyatukan kode dari repository pada branch tertentu ke local repository.
-    
+    c
 5. branch and config 
     -> Git branch digunakan untuk melihat branch apa yang kita punya.
     -> Git branch developer biasanya berfungsi untuk nge push ke developer   dulu baru push ke main.
