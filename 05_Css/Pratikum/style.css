@@ -1,0 +1,156 @@
+html {
+  background-color: #37517E;
+  margin: 0px;
+}
+
+.navbar {
+  list-style-type: none;
+  margin: 0px;
+  padding: 20px;
+  overflow: hidden;
+  
+}
+
+
+.button-button{
+  background-color: #33b8ff; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+ 
+
+
+.row::after { 
+  float: left;
+  content: none;
+  clear: both;
+  display: table;
+}
+
+.colum2 {
+  color: aliceblue;
+  float: left;
+  width: 400px;
+  padding: 5px;
+  margin: 200px 100px 40px 70px;
+}
+
+/* .header-styling {  */
+  /* background-color: rgb(245, 245, 245); */
+
+  .font-styling {
+    background-color: #ffffff;
+    color: #37517E;
+    text-align: center;
+    font-size: 15px;
+    margin-top: auto;
+  
+  }
+
+.button-container {
+  display: flex; 
+  justify-content: center; 
+  height: 6vh; 
+}
+
+.subscribe-button {
+  background-color: #2f69bb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+
+li a{
+  float: left;
+  color: black;
+  text-align: left;
+  padding: 14px 16px;
+  text-align: none;
+}
+
+.colum {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  margin: 100px 100px 40px 50px;
+}
+
+#cards{
+    margin: 0 10px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+#cards #card {
+    padding: 30px;
+    margin: 10px;
+    text-align: center;
+    color: var(--hitam);
+    border: 2px solid var(--hitam);
+    background-color: var(--putih);
+    transition: 0.5s;
+}
+
+#cards #card  {
+    margin-top: 10px;
+    background-color: var(--putih);
+}
+
+.lingkaran1{
+  width: 30px;
+  height: 30px;
+  background: #47B2E4;
+  ;
+  border-radius: 100%;
+  display: inline-block;
+}
+.lingkaran2{
+  width: 30px;
+  height: 30px;
+  background: #47B2E4;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+.lingkaran3{
+  width: 30px;
+  height: 30px;
+  background: #47B2E4;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+.lingkaran4 {
+  width: 30px;
+  height: 30px;
+  background: #47B2E4;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+/*hover*/
+.cards .card:hover {
+  transform:translateY(-10px) ;
+  box-shadow: 0 10px 10px var(--hitam);
+}
+
+/* footer*/
+.footer {
+  background-color: #ffffff;
+  padding: auto;
+}
+
+.copy {
+  background-color: #37517E;
+  color: #fdfeff;
+  text-align: center;
+}
