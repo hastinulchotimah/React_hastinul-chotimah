@@ -1,23 +1,24 @@
 html {
-  background-color: #ffffff;
+  background-color: #37517e;
   margin: 0px;
- 
+  padding: 0%;
 }
 
-/* .navbar {
-  list-style-type: none;
-  margin: none;
-  padding: none;
-  overflow: hidden;
-  text-align: center;
-  background-color: #fdfeff;
-  justify-content: center;
-  margin-top: 0px;
-} */
 
-/* buttonnn */
+ .image {
+  margin-left: 800px;
+  padding-bottom: 0%;
+  position: relative;
+  width: 100%;
+  height:auto;
+  top: 30%;
+  right: 0;
+  transform: translate(0, -50%);
+ }
+  
+
 .button-button{
-  background-color: #33b8ff; 
+  background-color: #4591c3; 
   color: white;
   border: none;
   padding: 10px 20px;
@@ -26,6 +27,9 @@ html {
   cursor: pointer;
 }
  
+.row {
+  background-color: #37517E;
+}
 
 
 .row::after { 
@@ -36,18 +40,18 @@ html {
 }
 
 .colum2 {
-  color: rgb(2, 4, 6);
+  color: rgb(255, 255, 255);
   float: left;
   width: 400px;
-  padding: 5px;
+  /* padding: 10px; */
   margin: 200px 100px 40px 70px;
+  padding-top: 300px;
+
+  
 }
 
 /* .header-styling {  */
   /* background-color: rgb(245, 245, 245); */
-
-
-
 
   .font-styling {
     background-color: #ffffff;

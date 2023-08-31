@@ -49,63 +49,68 @@
     </div>
   </nav>
   
-    <div class="create">
-     <div class="text-black">
-      <img src="imageboostrap.jpeg" alt="gambar bootstrap" width="70px" height="50px">
-        <h2>Create Product</h2>
-        Below is an example form built entirely with Bootstrap's form controls. Each required form group has a 
-        <br>validation state that can be triggered by attempting to submit the form without completing it.
-        <h3>Detail Product</h3>
-      </div>
-        
-        <p>
-            <form action="/action_page.php">
-                <label for="fname">Product name:</label><br>
-                <input type="text" id="fname" name="fname"><br>
+    <div class="container" style="width: 800px; text-align: center;">
+     <!-- <div class="text-black"> -->
+      <img src="imageboostrap.jpeg" width="70" height="50"> 
+        <h1>Create Product</h1>
+        <p>Below is an example form built entirely with Bootstrap's form controls. Each required form group has a 
+        <br>validation state that can be triggered by attempting to submit the form without completing it.</p>
+        </div>
 
-            <form action="/action_page.php">
-                <label for="fname">Product category:</label><br>
-                
-                <select required>
-                    <option value="">    </option>
-                    <option value="makanan">makanan</option>
-                    <option value="minuman">minuman</option>
-                    <option value="smoothies">smoothies</option>
-                </select> <br>
-            <br>
-                <form name="form_upload" >  
-                  Image Of Product
-                      <input type="file" accept="image/*"/>
-                  </form> 
-                 
-            <label>Produk Freshness:</label><br>
-                <ul type="circle">
-                    <li>Brand New</li>
-                    <li>Second Hank</li>
-                    <li>Refurbished</li>
-                </ul>
+        <div class="container" style="width: 500px;">
+          <h3>Detail Product</h3>
+          
+            <div class="col-8">
+              <label for="Product name">Product name </label>
+              <input type="text" 
+              class="form-control" id="Product name" name="Product name" minlength="6" maxlength="50" required>
+            </div>
+            <div class="col-6">
+              <label for="Product category">Product category</label>
+              <br>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>Choose...</option>
+                        <option value="1">one</option>
+                        <option value="2">two</option>
+                        <option value="3">three</option>
+              </select> <br>
+            </div>
+            <div class="col-6">
+              <label for="formFile"
+              class="form-label">Image Of Product</label>
+              <input class="form-control" type="file" id="formFile">
+            </div>
+            <div class="form-group"> <label for="Product Freshness">Product Freshness</label> 
+            </div>
+            <div class="form-check"> <input class="form-check-input" type="radio" name="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">brand new</label>
+            </div>
+            <div class="form-check"> <input class="form-check-input" type="radio" name="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">Second Hank</label>
+            </div>
+            <div class="form-check"> <input class="form-check-input" type="radio" name="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">Refurbished</label>
+            </div>
+            <div class="col-10">
+              <label for="exampleFormControlTextarea1" class="form-label">Additional Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1"  rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="Product Price">Product Price:</label>
+                <br><input type="number" name="Product Price" id="Product Price" required>
+                <br> 
+              </div>
+                <div class="form-group">
+                  <p align="center">
+                    <br>
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </p>
+
+                </div>
+
               
-        
-            <form action="proses.php" method="get">
-                <p>Additional Description</p>
-                <p><textarea name="deskripsi produk" rows="5" cols="50"></textarea>
-                </p></form>
-
-            <form action="/action_page.php">
-                <label for="fname">Product Price:</label><br>
-            
-            <p>
-                <input type="submit" name="submit" value="$100">
-                
-            </p>
-
-            <p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" type="button">Submit</button>
-                  </div>
-                <!-- <input type="submit" name="submit" value="submit"> -->
-            </p>
-        </p>   
-    </div>
-</body>
-</html>
+          </form>
+        </div>
+    </body>
+</html>    
+      
