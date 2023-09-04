@@ -44,11 +44,11 @@
             <h2>Detail Product</h2>
           <form id="productForm">
             <div class="col-8 ">
-              <label for="Product_name">Product Name </label>
+              <label for="Product_name"><strong>Product Name:</strong> </label>
               <input type="text" class="form-control" id="Product_name" name="Product_name"><br><br>
             </div>
             <div class="col-6">
-              <label for="Product_cate">Product Category </label>
+              <label for="Product_cate"><strong>Product Category:</strong> </label>
               <br>
               <select class="form-select" aria-label="Default select example" id="Product_category">
                 <option selected>Choose...</option>
@@ -58,21 +58,21 @@
               </select></br>
             </div>
             <div class="col-6">
-                <label for="formFile" class="form-label">Image Of Product</label>
+                <label for="formFile" class="form-label"><strong>Image Of Product:</strong></label>
                 <input class="form-control" type="file" id="formFile">
             </div>
             <div class="form-group">
-                <label for="Product_freshness">Product Freshness :</label> 
+                <label for="Product_freshness"><strong>Product Freshness :</strong></label> 
                 <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="brand_new" > Brand New
                 <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="second_hank" > Second Hank
                 <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="refurbished" > Refurbished</br>
             </div>
             <div class="col-10">
-                <label for="additional" class="form-label">Additional Description</label>
+                <label for="additional" class="form-label"><strong>Additional Description:</strong></label>
                 <textarea class="form-control" id="additional" rows="3" required></textarea>
             </div>
             <div class="form-group">
-                <label for="Product_price">Product Price :</label>
+                <label for="Product_price"><strong>Product Price :</strong></label> <br>
                 <input type="number" name="Product_price" id="Product_price" required><br><br>
             </div>
             <div class="form-group">
@@ -103,7 +103,8 @@
                     if (Product_name === "" || Product_price ==="") 
                         {
                                   alert("Product name and product price cannot be empty.");
-                        } else if (Product_name.lenght > 25) {
+                        } else if (Product_name.length > 25) {
+
                                   alert("product name must not exceed 25 characters");
                         }  else if (Product_name.includes('@') || Product_name.includes('#') || Product_name.includes('{') || Product_name.includes('}')) {
                                   alert("Name must not contain symbols.");
@@ -137,52 +138,54 @@
           </table>
         </div>
         <script>
-          function tambahProduk() {
-            const Product_name = document.getElementById("Product_name").value;
-            const Product_category = document.getElementById("Product_category").value;
-            const formFile = document.getElementById("formFile").value;
-            const Product_freshness = document.querySelector('input [name="Product_freshness"]:checked').value;
-            const additional = document.getElementById("additional").value;
-            const Product_price = document.getElementById("Product_price").value;
-            form.reset();
-            const tabel = document.getElementById("tabelProduk").getElementsByTagName('tbody')[0];
-            const newRow = tabel.insertRow(tabel.rows.length);
-        
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            const cell4 = newRow.insertCell(3);
-            const cell5 = newRow.insertCell(4);
-            const cell6 = newRow.insertCell(5);
-            const cell7 = newRow.insertCell(6);
-        
-            cell1.innerHTML = Product_name;
-            cell2.innerHTML = Product_category;
-            cell3.innerHTML = formFile;
-            cell4.innerHTML = Product_freshness;
-            cell5.innerHTML = additional;
-            cell6.innerHTML = Product_price;
-            cell7.innerHTML = '<button class="btn btn-sm btn-info" onclick="ubahProduk(this)">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapusProduk(this)">Hapus</button>';
+         function tambahProduk() {
+  const Product_name = document.getElementById("Product_name").value;
+  const Product_category = document.getElementById("Product_category").value;
+  const formFile = document.getElementById("formFile").value;
+  const Product_freshness = document.querySelector('input[name="Product_freshness"]:checked').value;
+  const additional = document.getElementById("additional").value;
+  const Product_price = document.getElementById("Product_price").value;
+  
+  const tabel = document.getElementById("tabelProduk").getElementsByTagName('tbody')[0];
+  const newRow = tabel.insertRow(tabel.rows.length);
+
+  const cell1 = newRow.insertCell(0);
+  const cell2 = newRow.insertCell(1);
+  const cell3 = newRow.insertCell(2);
+  const cell4 = newRow.insertCell(3);
+  const cell5 = newRow.insertCell(4);
+  const cell6 = newRow.insertCell(5);
+  const cell7 = newRow.insertCell(6);
+  
+  cell1.innerHTML = Product_name;
+  cell2.innerHTML = Product_category;
+  cell3.innerHTML = formFile;
+  cell4.innerHTML = Product_freshness;
+  cell5.innerHTML = additional;
+  cell6.innerHTML = Product_price;
+  cell7.innerHTML = '<button class="btn btn-sm btn-info" onclick="ubahProduk(this)">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapusProduk(this)">Hapus</button>';
+
+
             
             // Mengosongkan input setelah ditambahkan
-            document.getElementById("Product_name").value = Product_name;
-            document.getElementById("Product_category").value = Product_category;
-            document.getElementById("formFile").value = formFile;
-            document.querySelector ('input[name="Product_freshness"]:checked').value = Product_freshness;
-            document.getElementById("additional").value = additional;
-            document.getElementById("Product_price").value = Product_price;
+            // document.getElementById("Product_name").value = Product_name;
+            // document.getElementById("Product_category").value = Product_category;
+            // document.getElementById("formFile").value = formFile;
+            // document.querySelector ('input[name="Product_freshness"]:checked').value = Product_freshness;
+            // document.getElementById("additional").value = additional;
+            // document.getElementById("Product_price").value = Product_price;
 
-            row.parentNode.removeChild(row);
+            // row.parentNode.removeChild(row);
           }
           
 
         
-          function deleteProduk(button) {
+          function hapusProduk(button) {
             var row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
           }
         
-          function editProduk(button) {
+          function ubahProduk(button) {
             var row = button.parentNode.parentNode;
             var Product_name = row.cells[0].innerHTML;
             var Product_category = row.cells[1].innerHTML;
@@ -206,29 +209,30 @@
           });
           function caritabel(){
             var input = searchInput.value.toLowerCase();
-            var tabel = document.getElementById?("tabelProduk");
+            var tabel = document.getElementById("tabelProduk");
             var rows=tabel.getElementsByTagName('tr');
 
-            for (var i =1; i < rows.lenght; i++) {
+            for (var i = 1; i < rows.length; i++) {
               var row = rows[i];
               var cells = row.getElementsByTagName("td");
 
               var found = false;
 
-                for (var j = 0; j < cells.lenght; j++) {
-                  var cell = cells[j];
-                  var text = cell.textContent.toLowerCase();
+            for (var j = 0; j < cells.length; j++) {
+               var cell = cells[j];
+               var text = cell.textContent.toLowerCase();
 
-                  if(Text.indexOf(input) > -1 ) {
-                    found = true;
-                    break;
-                  }
-                }
-                if(found){
-                  row.style.display="";
-               } else {
-                 row.style.display="none";
+            if (text.indexOf(input) > -1) {
+              found = true;
+               break;
+             }
             }
+
+            if (found) {
+            row.style.display = "";
+            } else {
+            row.style.display = "none";
+           }
           }
         }
         </script>
