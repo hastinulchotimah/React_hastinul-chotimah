@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <title>List Product</title>
+    </head>
+     <!-- teks untuk navbar create product -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Simple Header</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link"  href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">FAQs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <body>
+      <!-- teks Create Produk html dan boostrap -->
+      <div class="container" style="width:800px; text-align:center;">
+       <img src="imageboostrap.jpeg" width="100" height="100" >
+          <h1>Create Product</h1>
+            <p>Below is an example form built entirely with Bootstrap's form control. Each required form group has a 
+             <br>validation state that can be triggered by attempting to submit the form without completing it.
+            </p>
+      </div>
+        <div class="container" style="width:500px;">
+            <h2>Detail Product</h2>
+          <form id="productForm">
+            <div class="col-8 ">
+              <label for="Product_name"><strong>Product Name:</strong> </label>
+              <input type="text" class="form-control" id="Product_name" name="Product_name"><br><br>
+            </div>
+            <div class="col-6">
+              <label for="Product_cate"><strong>Product Category:</strong> </label>
+              <br>
+              <select class="form-select" aria-label="Default select example" id="Product_category">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select></br>
+            </div>
+            <div class="col-6">
+                <label for="formFile" class="form-label"><strong>Image Of Product:</strong></label>
+                <input class="form-control" type="file" id="formFile">
+            </div>
+            <div class="form-group">
+                <label for="Product_freshness"><strong>Product Freshness :</strong></label> 
+                <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="brand_new" > Brand New
+                <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="second_hank" > Second Hank
+                <br><input class="form-check-input" id="Product_freshness" type="radio" name="Product_freshness" value="refurbished" > Refurbished</br>
+            </div>
+            <div class="col-10">
+                <label for="additional" class="form-label"><strong>Additional Description:</strong></label>
+                <textarea class="form-control" id="additional" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Product_price"><strong>Product Price :</strong></label> <br>
+                <input type="number" name="Product_price" id="Product_price" required><br><br>
+            </div>
+            <div class="form-group">
+                <p align="center">
+                    <br>
+                    <input type="button" value="SUBMIT" id="submitBtn" onclick="tambahProduk()" class="btn btn-primary">
+                </br>
+                </p>
+            </div>
+            </form>
+            <script>
+                const Product_nameInput     = document.getElementById("Product_name");
+                const Product_categoryInput = document.getElementById("Product_category");
+                const formFileInput         = document.getElementById("formFile");
+                const Product_freshnessInput = document.getElementById("Product_freshness");
+                const additionalInput       = document.getElementById("additional");
+                const Product_priceInput     = document.getElementById("Product_price");
+                const submitBtn             = document.getElementById("submitBtn");
+        
+                submitBtn.addEventListener("click", function () {
+                    const Product_name = Product_nameInput.value;
+                    const Product_category = Product_categoryInput.value;
+                    const formFile = formFileInput.value;
+                    const Product_freshness = Product_freshnessInput.value;
+                    const additional = additionalInput.value;
+                    const Product_price = Product_priceInput.value;
+        
+                    if (Product_name === "" || Product_price ==="") 
+                        {
+                                  alert("Product name and product price cannot be empty.");
+                        } else if (Product_name.length > 25) {
+
+                                  alert("product name must not exceed 25 characters");
+                        }  else if (Product_name.includes('@') || Product_name.includes('#') || Product_name.includes('{') || Product_name.includes('}')) {
+                                  alert("Name must not contain symbols.");
+                        } else if (Product_category ===""|| formFile === ""|| additional ==="" || Product_freshness ==="") {
+                                  alert("Each form must be failed in, it cannot be empty");
+                        } else {
+                          //Perform your desired action here, such as submitting the form.
+                            alert("Product created successfully.");
+                        } 
+                      });
+            </script>
+        </div>
+        <div class="container">
+          <h2>List Product</h2>
+          <br> <input type="text" id="searchInput" placeholder="cari..."></br>
+          <table class="table" id="tabelProduk">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Product Category</th>
+                <th>Image Of Product</th>
+                <th>Product Freshness</th>
+                <th>Additional Description</th>
+                <th>Product Price</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <!-- Data produk akan ditambahkan di sini melalui JavaScript -->
+        <script>
+         function tambahProduk() {
+            const Product_name = document.getElementById("Product_name").value;
+            const Product_category = document.getElementById("Product_category").value;
+            const formFile = document.getElementById("formFile").value;
+            const Product_freshness = document.querySelector('input[name="Product_freshness"]:checked').value;
+            const additional = document.getElementById("additional").value;
+            const Product_price = document.getElementById("Product_price").value;
+            
+            const tabel = document.getElementById("tabelProduk").getElementsByTagName('tbody')[0];
+            const newRow = tabel.insertRow(tabel.rows.length);
+            // Membuat sel-sel baru dalam baris baru (newRow)
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            const cell6 = newRow.insertCell(5);
+            const cell7 = newRow.insertCell(6);
+            // Mengisi konten dalam setiap sel dengan data yang sesuai
+            cell1.innerHTML = Product_name;
+            cell2.innerHTML = Product_category;
+            cell3.innerHTML = formFile;
+            cell4.innerHTML = Product_freshness;
+            cell5.innerHTML = additional;
+            cell6.innerHTML = Product_price;
+            // Isi sel ketujuh dengan tombol "Ubah" dan "Hapus" yang memiliki fungsi onclick
+            cell7.innerHTML = '<button class="btn btn-sm btn-info" onclick="ubahProduk(this)">Ubah</button> <button class="btn btn-sm btn-danger" onclick="hapusProduk(this)">Hapus</button>';
+          }
+          // script untuk button menghapus produk dari tabel produk
+          function hapusProduk(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+          }
+        // script untuk button ubah produk dari tabel yang telah diinputkan
+          function ubahProduk(button) {
+            var row = button.parentNode.parentNode;
+            var Product_name = row.cells[0].innerHTML;
+            var Product_category = row.cells[1].innerHTML;
+            var formFile = row.cells[2].innerHTML;
+            var Product_freshness = row.cells[3].innerHTML;
+            var additional = row.cells[4].innerHTML;
+            var Product_price = row.cells[5].innerHTML;
+        
+            document.getElementById("Product_name").value = Product_name;
+            document.getElementById("Product_category").value = Product_category;
+            document.getElementById("formFile").value = formFile;
+            document.getElementById("Product_freshness").value = Product_freshness;
+            document.getElementById("additional").value = additional;
+            document.getElementById("Product_price").value = Product_price;
+        
+            row.parentNode.removeChild(row);
+          }
+          // script button untuk menjalakan fungsinya menggunakan var dan lenght
+          var searchInput = document.getElementById("searchInput");
+          searchInput.addEventListener("input", function() {
+            caritabel();
+          });
+
+          function caritabel(){
+            var input = searchInput.value.toLowerCase();
+            var tabel = document.getElementById("tabelProduk");
+            var rows=tabel.getElementsByTagName('tr');
+ // Iterasi melalui setiap baris dalam tabel, dimulai dari indeks 1 (menghindari header)
+            for (var i = 1; i < rows.length; i++) {
+              var row = rows[i];
+              var cells = row.getElementsByTagName("td");
+
+              var found = false;
+
+            for (var j = 0; j < cells.length; j++) {
+               var cell = cells[j];
+               var text = cell.textContent.toLowerCase();
+
+            if (text.indexOf(input) > -1) {
+              found = true;
+               break;
+             }
+            }
+// Menampilkan atau menyembunyikan baris berdasarkan hasil pencarian
+            if (found) {
+            row.style.display = "";
+            } else {
+            row.style.display = "none";
+           }
+          }
+        }
+        </script>
+    </body>
+</html>
