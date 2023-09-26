@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
-import { addProducts, deleteProducts } from "../store/productSlice";
+import { addProducts, deleteProducts, editProducts, } from "../store/productSlice";
 
 function CreateProduct() {
   useEffect(() => {
@@ -23,6 +24,8 @@ function CreateProduct() {
     ProductFreshness: "",
     ProductPrice: "",
   });
+
+  const [editMode, setEditMode] = useState(false);
 
   const list = useSelector((state) => state.list.product);
   const dispatch = useDispatch();
@@ -59,74 +62,114 @@ function CreateProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      Productname,
-      ProductPrice,
-      Productcategory,
-      formFile,
-      Additional,
-      ProductFreshness,
-    } = formData;
-
-    const nameRegex = /^[A-Za-z]+$/;
-    const categoryRegex = /^(one|two|three)$/;
-    const freshnessRegex = /^(Brand New|Second Hand|Refurbished)$/;
-    const priceRegex = /^\d+(\.\d{1,2})?$/;
-
-    const newFormErrors = {
-      Productname: !nameRegex.test(Productname),
-      Productcategory: !categoryRegex.test(Productcategory),
-      formFile: !formFile,
-      Additional: Additional === "",
-      ProductFreshness: !freshnessRegex.test(ProductFreshness),
-      ProductPrice: !priceRegex.test(ProductPrice),
-    };
-
-    setFormErrors(newFormErrors);
-    if (
-      !newFormErrors.Productname &&
-      !newFormErrors.Productcategory &&
-      !newFormErrors.formFile &&
-      !newFormErrors.Additional &&
-      !newFormErrors.ProductFreshness &&
-      !newFormErrors.ProductPrice
-    ) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageSrc = event.target.result;
-        const newProduct = {
-          id: Date.now(), 
-          Productname,
-          Productcategory,
-          formFile: formFile.name,
-          Additional,
-          ProductFreshness,
-          ProductPrice,
-          imageSrc,
-        };
-
-        dispatch(addProducts([...list, newProduct]));
-
-        setFormData({
-          Productname: "",
-          Productcategory: "Choose...",
-          formFile: null,
-          Additional: "",
-          ProductFreshness: "",
-          ProductPrice: "",
-        });
+    if (editMode) {
+      const updatedProduct = {
+        id: formData.id,
+        Productname: formData.Productname,
+        Productcategory: formData.Productcategory,
+        formFile: formData.formFile,
+        Additional: formData.Additional,
+        ProductFreshness: formData.ProductFreshness,
+        ProductPrice: formData.ProductPrice,
+        imageSrc: formData.imageSrc,
       };
 
-      reader.readAsDataURL(formFile);
+      dispatch(editProducts(updatedProduct)); 
+
+      setEditMode(false);
+
+      setFormData({
+        Productname: "",
+        Productcategory: "Choose...",
+        formFile: null,
+        Additional: "",
+        ProductFreshness: "",
+        ProductPrice: 0,
+      });
+    } else {
+      const {
+        Productname,
+        ProductPrice,
+        Productcategory,
+        formFile,
+        Additional,
+        ProductFreshness,
+      } = formData;
+
+      const nameRegex = /^[A-Za-z]+$/;
+      const categoryRegex = /^(one|two|three)$/;
+      const freshnessRegex = /^(Brand New|Second Hand|Refurbished)$/;
+      const priceRegex = /^\d+(\.\d{1,2})?$/;
+
+      const newFormErrors = {
+        Productname: !nameRegex.test(Productname),
+        Productcategory: !categoryRegex.test(Productcategory),
+        formFile: !formFile,
+        Additional: Additional === "",
+        ProductFreshness: !freshnessRegex.test(ProductFreshness),
+        ProductPrice: !priceRegex.test(ProductPrice),
+      };
+
+      setFormErrors(newFormErrors);
+      if (
+        !newFormErrors.Productname &&
+        !newFormErrors.Productcategory &&
+        !newFormErrors.formFile &&
+        !newFormErrors.Additional &&
+        !newFormErrors.ProductFreshness &&
+        !newFormErrors.ProductPrice
+      ) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const imageSrc = event.target.result;
+          const newProduct = {
+            id: Date.now(), // Generate a unique ID
+            Productname,
+            Productcategory,
+            formFile: formFile.name,
+            Additional,
+            ProductFreshness,
+            ProductPrice,
+            imageSrc,
+          };
+
+         
+          dispatch(addProducts([...list, newProduct]));
+
+          setFormData({
+            Productname: "",
+            Productcategory: "Choose...",
+            formFile: null,
+            Additional: "",
+            ProductFreshness: "",
+            ProductPrice: "",
+          });
+        };
+
+        reader.readAsDataURL(formFile);
+      }
     }
+  };
+
+  const editProduct = (id) => {
+    const edit = list.filter((item) => item.id === id);
+    setFormData(...edit);
+    setEditMode(true);
   };
 
   return (
     <div className="container mx-auto p-5">
+      <button
+        type="button"
+        className="rounded-full bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-700"
+        onClick={() => navigate("/")}
+      >
+        Home
+      </button>
       <div className="text-center">
         <img
           src="https://camo.githubusercontent.com/84746920d1a9906680c387b3cc8753ee842e996fc8915abd295011e15b594b74/68747470733a2f2f676574626f6f7473747261702e636f6d2f646f63732f352e312f6173736574732f6272616e642f626f6f7473747261702d6c6f676f2d736861646f772e706e67"
-          width="200"
+          width="100"
           alt="Product"
           className="mx-auto"
         />
@@ -236,11 +279,11 @@ function CreateProduct() {
             <input
               type="radio"
               name="ProductFreshness"
-              value="brand new"
+              value="Brand New"
               className="mr-2"
               onChange={handleInputChange}
             />
-            <label htmlFor="brandNew">
+            <label htmlFor="BrandNew">
               {isIndonesian ? "Baru" : "Brand New"}
             </label>
           </div>
@@ -252,7 +295,7 @@ function CreateProduct() {
               className="mr-2"
               onChange={handleInputChange}
             />
-            <label htmlFor="secondHand">
+            <label htmlFor="SecondHand">
               {isIndonesian ? "Bekas" : "Second Hand"}
             </label>
           </div>
@@ -264,7 +307,7 @@ function CreateProduct() {
               className="mr-2"
               onChange={handleInputChange}
             />
-            <label htmlFor="refurbished">
+            <label htmlFor="Refurbished">
               {isIndonesian ? "Renovasi" : "Refurbished"}
             </label>
           </div>
@@ -375,7 +418,7 @@ function CreateProduct() {
             </tr>
           </thead>
           <tbody className="text-center">
-            {/* ini di ubah jadi list.map -------------------------------------- */}
+        
             {list.map((product, index) => (
               <tr key={product.id}>
                 <td className="border p-2">{index + 1}</td>
@@ -404,6 +447,13 @@ function CreateProduct() {
                     className="m-auto rounded-full bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-700"
                   >
                     {isIndonesian ? "Detail" : "Detail"}
+                  </button>
+
+                  <button
+                    onClick={() => editProduct(product.id)}
+                    className="m-auto rounded-full bg-green-500 px-4 py-2 text-center font-bold text-white hover:bg-green-700"
+                  >
+                    {isIndonesian ? "Ubah" : "Edit"}
                   </button>
 
                   <button

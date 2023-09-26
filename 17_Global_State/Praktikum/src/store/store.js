@@ -4,7 +4,6 @@ import productReducer from "./productSlice";
 
 const store = configureStore({
   reducer: {
-   
     auth: authReducer,
     list: productReducer,
   },
