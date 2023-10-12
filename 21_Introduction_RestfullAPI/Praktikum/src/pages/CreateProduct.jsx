@@ -26,7 +26,8 @@ function CreateProduct() {
     ProductPrice: "",
   });
 
-  const [editMode, setEditMode] = useState(false);
+  // const [editedProduct, setEditedProduct] = useState(null);
+
 
   const list = useSelector((state) => state.list.product);
   const dispatch = useDispatch();
@@ -61,32 +62,12 @@ function CreateProduct() {
     setFormData({ ...formData, ProductPrice: randomPrice });
   };
 
-  const handleSubmit = (e) => {
+  // const [editingProduct, setEditingProduct] = useState(null);
+ 
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editMode) {
-      const updatedProduct = {
-        id: formData.id,
-        Productname: formData.Productname,
-        Productcategory: formData.Productcategory,
-        formFile: formData.formFile,
-        Additional: formData.Additional,
-        ProductFreshness: formData.ProductFreshness,
-        ProductPrice: formData.ProductPrice,
-        imageSrc: formData.imageSrc,
-      };
-
-      dispatch(editProducts(updatedProduct)); 
-
-      setEditMode(false);
-
-      setFormData({
-        Productname: "",
-        Productcategory: "Choose...",
-        formFile: null,
-        Additional: "",
-        ProductFreshness: "",
-        ProductPrice: 0,
-      });
+    if (isEditing) {
+      updateProduct();
     } else {
       const {
         Productname,
@@ -97,7 +78,9 @@ function CreateProduct() {
         ProductFreshness,
       } = formData;
 
-      const nameRegex = /^[A-Za-z]+$/;
+      
+
+      const nameRegex = /^(?!.*[@#{}])(.{1,25})$/; 
       const categoryRegex = /^(one|two|three)$/;
       const freshnessRegex = /^(Brand New|Second Hand|Refurbished)$/;
       const priceRegex = /^\d+(\.\d{1,2})?$/;
@@ -119,7 +102,79 @@ function CreateProduct() {
         !newFormErrors.Additional &&
         !newFormErrors.ProductFreshness &&
         !newFormErrors.ProductPrice
-      ) {
+      ) try {
+        const response = await axios.post( 
+          "https://651b95ed194f77f2a5ae9790.mockapi.io/product", 
+          formData 
+        ); 
+        const newProduct = response.data; 
+        dispatch(addProducts(newProduct)); 
+        alert("Produk berhasil disimpan!"); 
+
+ 
+ 
+
+        // const handleEditClick = (id) => { 
+        //   const productToEdit = list.find((product) => product.id === id); 
+        //   if (productToEdit) { 
+        //     setEditingProduct(productToEdit); 
+        //     setIsEditing(true); 
+        //     setFormData({ 
+        //       Productname: productToEdit.Productname, 
+        //       Productcategory: productToEdit.Productcategory, 
+        //       formFile: null, // Anda mungkin perlu menangani pengambilan gambar ulang jika dibutuhkan 
+        //       Additional: productToEdit.Additional, 
+        //       ProductFreshness: productToEdit.ProductFreshness, 
+        //       ProductPrice: productToEdit.ProductPrice, 
+        //     }); 
+        //   } 
+        // }; 
+        // const updateProduct = async () => { 
+        //   if (editingProduct) { 
+        //     try { 
+        //       const response = await axios.put( 
+        //         `https://651b95ed194f77f2a5ae9790.mockapi.io/product/${editingProduct.id}`, 
+        //         formData // Anda mungkin perlu menyesuaikan ini sesuai dengan struktur API Anda 
+        //       ); 
+        //       const updatedProduct = response.data; 
+        //       dispatch(editProducts(updatedProduct)); 
+        //       alert("Produk berhasil diupdate!"); 
+       
+        //       // Reset formulir setelah berhasil mengupdate 
+        //       setEditingProduct(null); 
+        //       setIsEditing(false); 
+        //       setFormData({ 
+        //         Productname: "", 
+        //         Productcategory: "Choose...", 
+        //         formFile: null, 
+        //         Additional: "", 
+        //         ProductFreshness: "", 
+        //         ProductPrice: "", 
+        //       }); 
+        //     } catch (error) { 
+        //       console.error("Error updating product:", error); 
+        //       alert("Terjadi masalah saat mengupdate produk."); 
+        //     } 
+        //   } 
+        // };
+        
+
+        setFormData({ 
+          Productname: "", 
+          Productcategory: "Choose...", 
+          formFile: null, 
+          Additional: "", 
+          ProductFreshness: "", 
+          ProductPrice: "", 
+        }); 
+      }
+       
+      catch (error) { 
+        console.error("Error saving product:", error); 
+        // Menampilkan pesan error jika terjadi masalah 
+        alert("Terjadi masalah saat menyimpan produk."); 
+        
+   
         const reader = new FileReader();
         reader.onload = (event) => {
           const imageSrc = event.target.result;
@@ -152,11 +207,65 @@ function CreateProduct() {
     }
   };
 
-  const editProduct = (id) => {
-    const edit = list.filter((item) => item.id === id);
-    setFormData(...edit);
-    setEditMode(true);
+  const [isEditing, setIsEditing] = useState(false); 
+  const [editingProduct, setEditingProduct] = useState(null); 
+
+  const handleEditClick = (id) => { 
+    const productToEdit = list.find((product) => product.id === id); 
+    if (productToEdit) { 
+      setEditingProduct(productToEdit); 
+      setIsEditing(true); 
+      setFormData({ 
+        Productname: productToEdit.Productname, 
+        Productcategory: productToEdit.Productcategory, 
+        formFile: null,  
+        Additional: productToEdit.Additional, 
+        ProductFreshness: productToEdit.ProductFreshness, 
+        ProductPrice: productToEdit.ProductPrice, 
+      }); 
+    } 
+  }; 
+ 
+  const updateProduct = async () => { 
+    if (editingProduct) { 
+      try { 
+        const response = await axios.put( 
+          `https://651b95ed194f77f2a5ae9790.mockapi.io/product/${editingProduct.id}`, 
+          formData  
+        ); 
+        const updatedProduct = response.data; 
+        dispatch(editProducts(updatedProduct)); 
+        alert("Produk berhasil diupdate!"); 
+ 
+        setEditingProduct(null); 
+        setIsEditing(false); 
+        setFormData({ 
+          Productname: "", 
+          Productcategory: "Choose...", 
+          formFile: null, 
+          Additional: "", 
+          ProductFreshness: "", 
+          ProductPrice: "", 
+        }); 
+      } catch (error) { 
+        console.error("Error updating product:", error); 
+        alert("Terjadi masalah saat mengupdate produk."); 
+      } 
+    } 
   };
+
+  const handleDeleteClick = async (id) => { 
+    try { 
+      await axios.delete(`https://651b95ed194f77f2a5ae9790.mockapi.io/product/${id}`); 
+      dispatch(deleteProducts(id)); 
+      alert("Produk berhasil dihapus!"); 
+    } catch (error) { 
+      console.error("Error deleting product:", error); 
+      alert("Terjadi masalah saat menghapus produk."); 
+    } 
+  };
+  
+
   useEffect(() => { 
     const fetchData = async () => { 
       try { 
@@ -435,7 +544,7 @@ function CreateProduct() {
           </thead>
           <tbody className="text-center">
         
-            {list.map((product, index) => (
+            {Array.isArray(list) && list.map((product, index) => (
               <tr key={product.id}>
                 <td className="border p-2">{index + 1}</td>
                 <td className="border p-2">{product.Productname}</td>
@@ -465,15 +574,15 @@ function CreateProduct() {
                     {isIndonesian ? "Detail" : "Detail"}
                   </button>
 
-                  <button
-                    onClick={() => editProduct(product.id)}
-                    className="m-auto rounded-full bg-green-500 px-4 py-2 text-center font-bold text-white hover:bg-green-700"
-                  >
-                    {isIndonesian ? "Ubah" : "Edit"}
-                  </button>
+                  <button 
+                onClick={() => handleEditClick(product.id)} // Panggil fungsi handleEditClick saat tombol "Edit" diklik 
+                className="m-auto rounded-full bg-green-500 px-4 py-2 text-center font-bold text-white hover:bg-green-700" 
+              > 
+                {isIndonesian ? "Ubah" : "Edit"} 
+              </button>
 
                   <button
-                    onClick={() => dispatch(deleteProducts(product.id))}
+                    onClick={() => handleDeleteClick  (product.id)}
                     className="m-auto rounded-full bg-red-500 px-4 py-2 text-center font-bold text-white hover:bg-red-700"
                   >
                     {isIndonesian ? "Hapus" : "Delete"}
