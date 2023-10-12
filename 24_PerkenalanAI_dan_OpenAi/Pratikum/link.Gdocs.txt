@@ -1,0 +1,8 @@
+=> SYSTEM
+You will be provided with a text, and your task is to extract the airport codes from it.
+=> USER
+I want to fly from Orlando to Boston
+ASSISTANT
+The airport codes for Orlando and Boston are MCO and BOS, respectively.
+
+LINK : https://drive.google.com/file/d/1PFbdaoB6ZAN9VxSbfQNv2du4mabGG1GE/view?usp=drivesdk 
